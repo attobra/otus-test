@@ -53,14 +53,16 @@ describe('Take an assessment tests', function (){
         otusBtn.click();
         // Step2: Enter text in the box
         await driver.findElement(By.css('input')).sendKeys('Take Challenge Student Profile');
-        //Step2: click to send the input
-        let submit = await driver.findElement(By.css('.submit'));
+        //Step3: click to send the input
+        const submit = await driver.findElement(By.css('.submit'));
         submit.click();
-        //Expected Results: check the result of the popup
-        let submit = await driver.wait(until.elementLocated(By.css('h2')), 10000);
-        //console log the message inside the popup
-        console.log("this is the alert message: " + await result.getAttribute('textContent'));
-       
+        //step4: click no button
+        const noBtn = await driver.wait(until.elementLocated(By.css('.no-button')), 10000);
+        noBtn.click()
+        //Expected Results: 
+        let status = await driver.wait(until.elementLocated(By.id('#otus-status-text')), 10000);
+        expect(status).toContain('Turned In')
     })
     
 })
+
